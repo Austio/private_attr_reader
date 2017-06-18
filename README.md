@@ -1,6 +1,14 @@
 # PrivateAttrReader
 
-This gem adds a class method on `Object` called `private_attr_reader` that acts nearly identically to `attr_reader` but makes the created methods private.
+Allows you to do this in Class definitions that inherity from Object
+
+```
+class User
+  private_attr_reader :stuff, :things
+end
+```
+
+This creates private attr_readers for both stuff and things.  
 
 ## Installation
 
