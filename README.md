@@ -3,12 +3,55 @@
 Allows you to do this in Class definitions that inherity from Object
 
 ```
-class User
-  private_attr_reader :stuff, :things
+class UserService
+  private_attr_reader :name, :things
 end
 ```
 
 This creates private attr_readers for both stuff and things.  
+
+## Why?
+
+When using Plain Ruby Objects (PORO) I prefer to access instance attributes through attribute readers.  At the same time, I  do not want to expose the readers on the classes public interface.  I used to do this
+
+```
+class UserService
+  private
+  attr_reader :name, :user_id
+end
+```
+
+But I didn't like having the extra line because everything after that will be private and I prefer to have my attr_readers at the top of my class definition (once again stylistic).
+
+So now I do this
+
+```
+class UserService
+  private_attr_reader :name, :user_id
+end
+```
+
+And use like this
+
+
+```
+class UserService
+  private_attr_reader :name, :user_id
+  
+  def initialize(@name, @user_id)
+    @name = name
+    @user_id = user_id
+  end
+  
+  def call
+    user.update(name)
+  end
+  
+  def user
+    @user ||= User.find(user_id)
+  end
+end
+```
 
 ## Installation
 
